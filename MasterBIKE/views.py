@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views import View
-from .forms import CustomerRegistrationForm
+from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
+from .models import Customer
 
 # Create your views here.
 
@@ -69,6 +70,22 @@ class CustomerRegistrationView(View):
         
 class ProfileView(View):
     def get(self,request):
+        form = CustomerProfileForm()
         return render(request, "pages/profile.html", locals())
     def post(self,request):
+        form = CustomerProfileForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            nombre = form.cleaned_data['nombre']
+            direccion = form.cleaned_data['direccion']
+            comuna = form.cleaned_data['comuna']
+            telefono = form.cleaned_data['telefono']
+            region = form.cleaned_data['region']
+            zipcode = form.cleaned_data['zipcode']
+
+            reg = Customer(user=user, nombre=nombre, direccion=direccion, comuna=comuna, telefono=telefono, region=region, zipcode=zipcode)
+            reg.save()
+            messages.success(request, "Perfil guardado correctamente")
+        else:
+            messages.warning(request, "Faltaron datos")
         return render(request, "pages/profile.html", locals())
