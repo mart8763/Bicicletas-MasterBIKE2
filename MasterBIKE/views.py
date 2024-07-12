@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.views import View
+from .forms import CustomerRegistrationForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -50,3 +53,22 @@ def ruta(request):
 def urbex(request):
     context = {}
     return render(request, "pages/urbex.html", context)
+
+class CustomerRegistrationView(View):
+    def get(self,request):
+        form = CustomerRegistrationForm()
+        return render(request, "pages/customerrestration.html", locals())
+    def post(self,request):
+        form = CustomerRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Usuario registrado correctamente")
+        else:
+            messages.warning(request, "Datos no validos")
+            return render(request, "pages/customerrestration.html", locals())
+        
+class ProfileView(View):
+    def get(self,request):
+        return render(request, "pages/profile.html", locals())
+    def post(self,request):
+        return render(request, "pages/profile.html", locals())
