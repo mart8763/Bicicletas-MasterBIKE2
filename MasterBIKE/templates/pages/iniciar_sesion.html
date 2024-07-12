@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesion</title>
+    {% load static %}
+    <link rel="icon" type="img/jpg" href="{% static 'img/icono1.png'%}">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    
+    {% include 'base/navbar.html' %}
+
+    <main>
+        <div class="container">
+            <form id="form" action="/" method="post">
+                <h1>Iniciar sesion</h1>
+                <div class="input-control">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="text">
+                    <div class="error"></div>
+                </div>
+
+                <div class="input-control">
+                    <label for="password">Contraseña</label>
+                    <input id="password" name="password" type="password">
+                    <div class="error"></div>
+                </div>
+
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+    </main>
+
+    {% include 'base/footer.html' %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "js/inicio formulario.js" %}"></script>
+
+</body>
+</html>
