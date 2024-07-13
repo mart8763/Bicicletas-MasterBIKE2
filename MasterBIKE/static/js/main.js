@@ -2,67 +2,67 @@ const productos = [
     {
         id: "asiento",
         titulo: "Asiento",
-        imagen: "imgProductos/asiento.png",
+        imagen: "static/imgProductos/asiento.png",
         precio: 20000
     },
     {
         id: "campana",
         titulo: "Campana",
-        imagen: "imgProductos/campana.jpg",
+        imagen: "static/imgProductos/campana.jpg",
         precio: 20000
     },
     {
         id: "casco",
         titulo: "Casco",
-        imagen: "imgProductos/casco.jpg",
+        imagen: "static/imgProductos/casco.jpg",
         precio: 20000
     },
     {
         id: "chaqueta",
         titulo: "Chaqueta",
-        imagen: "imgProductos/chaqueta.jpg",
+        imagen: "static/imgProductos/chaqueta.jpg",
         precio: 20000
     },
     {
         id: "llantas",
         titulo: "Llantas",
-        imagen: "imgProductos/llanta.png",
+        imagen: "static/imgProductos/llanta.png",
         precio: 20000
     },
     {
         id: "manillar",
         titulo: "Manillar",
-        imagen: "imgProductos/manillar.png",
+        imagen: "static/imgProductos/manillar.png",
         precio: 20000
     },
     {
         id: "marco",
         titulo: "Marco",
-        imagen: "imgProductos/marco.jpg",
+        imagen: "static/imgProductos/marco.jpg",
         precio: 20000
     },
     {
         id: "puños",
         titulo: "Puños",
-        imagen: "imgProductos/puños.png",
+        imagen: "static/imgProductos/puños.png",
         precio: 20000
     },
     {
         id: "rueda",
         titulo: "Rueda",
-        imagen: "imgProductos/rueda.png",
+        imagen: "static/imgProductos/rueda.png",
         precio: 20000
     },
     {
         id: "disco",
         titulo: "Disco",
-        imagen: "./imgProductos/disco.png",
+        imagen: "static/imgProductos/disco.png",
         precio: 20000
     },
     {
         id: "frenos",
         titulo: "Frenos",
-        imagen: "imgProductos/frenos.jpg",
+        imagen: "static/imgProductos/frenos.jpg",
         precio: 20000
     }
 ];
@@ -81,7 +81,7 @@ function cargarProductos() {
         const div = document.createElement("div");
         div.classList.add("producto");
         div.innerHTML = `
-            <img class="producto-imagen" src="{% static '${producto.imagen}' %}" alt="${producto.titulo}">
+            <img class="producto-imagen" src="${producto.imagen}" alt="${producto.titulo}">
             <div class="producto-detalles">
                 <h3 class="producto-titulo">${producto.titulo}</h3>
                 <p class="producto-precio">$${producto.precio}</p>

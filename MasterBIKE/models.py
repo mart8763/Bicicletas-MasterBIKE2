@@ -31,3 +31,5 @@ class Customer(models.Model):
     region = models.CharField(choices=ELEGIR_REGION, max_length=100)
     def __str__(self):
         return self.nombre
+    
+
