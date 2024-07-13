@@ -89,3 +89,7 @@ class ProfileView(View):
         else:
             messages.warning(request, "Faltaron datos")
         return render(request, "pages/profile.html", locals())
+    
+def address(request):
+    add = Customer.objects.filter(user=request.user)
+    return render(request, 'pages/address.html', locals())

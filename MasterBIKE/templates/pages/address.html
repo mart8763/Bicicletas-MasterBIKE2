@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bicicletas MasterBIKE</title>
+    {% load static %}
+    <link rel="icon" type="img/jpg" href="{% static 'img/icono1.png'%}">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+</head>
+<body>
+    
+    {% include 'base/navbar.html' %}
+
+    <div class="container my-5">
+        <div class="row">
+            <h3>Bienvenido <span class="text-capitalize">{{request.user}}</span></h3>
+
+            <div class="col-sm-2 border-end">
+                <ul class="list-unstyled">
+                    <li class="d-grid"><a href="{% url 'profile' %}" class="btn">Perfil</a></li>
+                    <li class="d-grid"><a href="{% url 'address' %}" class="btn btn-primary">Ubicaciones</a></li>
+                </ul>
+            </div>
+
+            <div class="col-sm-8 offset-sm-1">
+                <div class="row">
+                    {% for ad in add %}
+                        <div class="col-sm-6">
+                            <div class="card m-2">
+                                <div class="card-body">
+                                    <h3>Ubicacion {{forloop.counter}}</h3>
+                                    <p>nombre: {{ad.nombre}}</p>
+                                    <p>direccion: {{ad.direccion}}</p>
+                                    <p>comuna: {{ad.comuna}}</p>
+                                    <p>telefono: {{ad.telefono}}</p>
+                                    <p>region: {{ad.region}}</p>
+                                    <p>zipcode: {{ad.zipcode}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+    {% include 'base/footer.html' %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+            
+        
+</body>
+</html>

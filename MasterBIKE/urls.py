@@ -20,13 +20,13 @@ urlpatterns = [
     path("ruta", views.ruta, name="ruta"),
     path("urbex", views.urbex, name="urbex"),
     path('profile', views.ProfileView.as_view(), name='profile'),
-    path('address', views.ProfileView.as_view(), name='address'),
+    path('address', views.address, name='address'),
 
 
     #autenticacion de login
     path('registration', views.CustomerRegistrationView.as_view(), name="customerrestration"),
-    path('accounts/login', auth_view.LoginView.as_view(template_name='pages/login.html', authentication_form=LoginForm), name='login'),
+    path('accounts/login/', auth_view.LoginView.as_view(template_name='pages/login.html', authentication_form=LoginForm), name='login'),
     path('password-reset', auth_view.PasswordResetView.as_view(template_name='pages/password_reset.html', form_class=MyPasswordResetForm), name='password_reset'),
-
+    path('logout', auth_view.LogoutView.as_view(next_page='login'), name="logout"),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
