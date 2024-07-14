@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
-from .models import Customer
+from .models import Product, Customer, User
 
 # Create your views here.
 
@@ -11,9 +11,10 @@ def index(request):
     context = {}
     return render(request, "pages/index.html", context)
 
-def productos(request):
-    context = {}
-    return render(request, "pages/productos.html", context)
+class productos(View):
+    def get(self,request):
+        product = Product.objects.all()
+        return render(request, "pages/productos.html",locals())
 
 def categoria(request):
     context = {}
@@ -54,6 +55,11 @@ def ruta(request):
 def urbex(request):
     context = {}
     return render(request, "pages/urbex.html", context)
+
+def zprueba_usuario(request):
+    user = User.objects.all()
+    context = {'Usuario':user}
+    return render(request, 'pages/zprueba_usuario.html', context)
 
 class CustomerRegistrationView(View):
     def get(self,request):

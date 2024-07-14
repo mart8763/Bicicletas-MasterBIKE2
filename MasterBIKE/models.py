@@ -21,6 +21,15 @@ ELEGIR_REGION = (
 ('Magallanes y la Antártica Chilena', 'Magallanes y la Antártica Chilena'),
 )
 
+class Product(models.Model):
+    nombre = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
+    price = models.FloatField()
+    product_image = models.ImageField(upload_to='imgProductos')
+    def __str__(self):
+        return self.title
+
+
 class Customer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=200)
@@ -31,5 +40,14 @@ class Customer(models.Model):
     region = models.CharField(choices=ELEGIR_REGION, max_length=100)
     def __str__(self):
         return self.nombre
+    
+class Carro(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)
+
+    @property
+    def total_costo(self):
+        return self.cantidad * self.product.price
     
 

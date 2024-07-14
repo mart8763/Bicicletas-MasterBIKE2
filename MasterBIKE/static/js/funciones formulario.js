@@ -1,8 +1,8 @@
 const form = document.getElementById('form');
 const username = document.getElementById('username');
-const username2 = document.getElementById('username2');
 const email = document.getElementById('email');
-const password = document.getElementById('password');
+const password1 = document.getElementById('password1');
+const password2 = document.getElementById('password2');
 
 
 
@@ -37,20 +37,14 @@ const isValidEmail = email => {
 
 const validateInputs = () => {
     const usernameValue = username.value.trim();
-    const username2Value = username.value.trim();
     const emailValue = email.value.trim();
-    const passwordValue = password.value.trim();
+    const password1Value = password1.value.trim();
+    const password2Value = password2.value.trim();
 
     if (usernameValue === '') {
         setError(username, 'Requiere un nombre');
     } else {
         setSuccess(username)
-    }
-
-    if (username2Value === '') {
-        setError(username2, 'Requiere un apellido');
-    } else {
-        setSuccess(username2)
     }
 
     if (emailValue === '') {
@@ -61,12 +55,19 @@ const validateInputs = () => {
         setSuccess(email);
     }
 
-    if (passwordValue === '') {
-        setError(password, 'Requiere la contraseña')
-    } else if (passwordValue.length < 8) {
-        setError(password, 'La contraseña debe tener al menos 8 caracteres')
+    if (password1Value === '') {
+        setError(password1, 'Requiere la contraseña')
+    } else if (password1Value.length < 8) {
+        setError(password1, 'La contraseña debe tener al menos 8 caracteres')
     } else {
-        setSuccess(password)
+        setSuccess(password1)
     }
 
+    if (password2Value === '') {
+        setError(password2, 'Confirme la contraseña')
+    } else if (password2Value != passwordValue) {
+        setError(password2, 'Las contraseñas no coinciden')
+    } else {
+        setSuccess(password2)
+    }
 };
