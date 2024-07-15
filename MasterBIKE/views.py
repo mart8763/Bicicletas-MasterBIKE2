@@ -3,6 +3,7 @@ from django.views import View
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
 from .models import Product, Customer, User
+from django.db.models import Count
 
 # Create your views here.
 
@@ -55,6 +56,12 @@ def ruta(request):
 def urbex(request):
     context = {}
     return render(request, "pages/urbex.html", context)
+
+class CategoriaView(View):
+    def get(self, request):
+        product = Product.objects.all()
+        title = Product.objects.all().values('title').annotate(total=Count('title'))
+        return render(request, 'pages/categoria2.html', locals())
 
 def zprueba_usuario(request):
     user = User.objects.all()

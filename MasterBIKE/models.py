@@ -24,6 +24,7 @@ ELEGIR_REGION = (
 class Product(models.Model):
     nombre = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
+    description = models.TextField(default='')
     price = models.FloatField()
     product_image = models.ImageField(upload_to='imgProductos')
     def __str__(self):
@@ -50,4 +51,6 @@ class Carro(models.Model):
     def total_costo(self):
         return self.cantidad * self.product.price
     
+
+
 

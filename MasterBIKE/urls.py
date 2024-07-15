@@ -28,6 +28,7 @@ urlpatterns = [
     path('password-reset', auth_view.PasswordResetView.as_view(template_name='pages/password_reset.html', form_class=MyPasswordResetForm), name='password_reset'),
     path('logout', auth_view.LogoutView.as_view(next_page='login'), name="logout"),
 
-    path('zprueba_usuario', views.zprueba_usuario, name='zprueba_usuario')
+    path('zprueba_usuario', views.zprueba_usuario, name='zprueba_usuario'),
+    path('categoria2', views.CategoriaView.as_view(), name='categoria2'),
     
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
