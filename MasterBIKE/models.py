@@ -51,6 +51,25 @@ class Carro(models.Model):
     def total_costo(self):
         return self.cantidad * self.product.price
     
+STATUS_CHOICES = (
+    ('Aceptado','Aceptado'),
+    ('En camino','En camino'),
+    ('Entregado','Entregado'),
+    ('Cancelado','Cancelado'),
+    ('Pendiente','Pendiente'),
+)
+
+class OrderPlaced(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    cantidad = models.PositiveIntegerField(default=1)
+    orderred_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=50,choices=STATUS_CHOICES, default='Pendiente')
+    @property
+    def total_costo(self):
+        return self.cantidad * self.product.price
+    
 
 
 

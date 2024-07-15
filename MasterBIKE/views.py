@@ -14,6 +14,11 @@ def index(request):
     context = {}
     return render(request, "pages/index.html", context)
 
+def index2(request):
+    ubicacion = Customer.objects.all()
+    context = {'ubicacion':ubicacion}
+    return render(request, 'pages/index2.html', context)
+
 def productos(request):
     context = {}
     return render(request, "pages/productos.html",context)
