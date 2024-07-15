@@ -63,6 +63,11 @@ def urbex(request):
     context = {}
     return render(request, "pages/urbex.html", context)
 
+def compra_realizada(request):
+    context = {}
+    return render(request, "pages/compra_realizada.html", context)
+
+
 class CategoriaView(View):
     def get(self, request):
         product = Product.objects.all()

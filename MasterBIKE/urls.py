@@ -22,6 +22,8 @@ urlpatterns = [
     path("urbex", views.urbex, name="urbex"),
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('address', views.address, name='address'),
+    path('compra_realizada', views.compra_realizada, name='compra_realizada'),
+    
 
     #autenticacion de login
     path('registration', views.CustomerRegistrationView.as_view(), name="customerrestration"),
