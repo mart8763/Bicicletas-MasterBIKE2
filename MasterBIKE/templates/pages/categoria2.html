@@ -19,12 +19,13 @@
                 <div class="row">
                     {% for prod in product %}
                         <div class="col text-center mb-4">
-                            <div>
-                                <img src="{{prod.product_image.url}}" width="300px" height="250px">
-                                <div class="fw-bold">{{prod.title}}</div>
-                                <div class="fw-bold">${{prod.price}}</div>
-                            </div>
-                            <button type="submit" class="btn btn-danger">agregar</button>
+                            <a href="{% url 'product-detail' prod.id %}" class="btn">
+                                <div>
+                                    <img src="{{prod.product_image.url}}" width="300px" height="250px">
+                                    <div class="fw-bold">{{prod.title}}</div>
+                                    <div class="fw-bold">${{prod.price}}</div>
+                                </div>
+                            </a>
                         </div>
                     {% endfor %}
                 </div>
@@ -36,6 +37,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "js/myscript.js" %}"></script>
 
 </body>
 </html>

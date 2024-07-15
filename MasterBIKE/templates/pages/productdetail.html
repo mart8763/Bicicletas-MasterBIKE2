@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="icon" type="img/jpg" href="{% static 'img/icono1.png'%}">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    {% include 'base/navbar.html' %}
+
+    <div class="container">
+        <div class="row flex justify-content-between">
+            <div class="img2 col-lg-5 mt-5">
+                <img src="{{product.product_image.url}}" class="image col-xs-6 
+                col-sm-12 col-lg-12 mt-3 text-sm-center w-100 h-75" alt="">
+            </div>
+            <div class="productdetail col-lg-5">
+                <h1 style="font-family: Georgia; font-size: 50px ">{{product.title}}</h1>
+                <h4>Caracteristicas del producto</h4>
+                <ul class="fs-5" style="font-family: Rajdhani;">
+                    <li>{{product.description}}</li>
+                </ul>
+                <br>
+                <h5>${{product.price}}</h5>
+                <form action="/add-to-cart" class="d-inline">
+                    <input type="hidden" name="prod_id" value={{product.id}}/>
+                    <button type="submit" class="btn btn-danger shadow px-5 py-2">Agregar al carro</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% include 'base/footer.html' %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "js/myscript.js" %}"></script>
+
+</body>
+</html>
+

@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.views import View
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
-from .models import Product, Customer, User
+from .models import Product, Customer, Carro
 from django.db.models import Count
+from django.http import JsonResponse
+from django.db.models import Q
 
 # Create your views here.
 
@@ -12,10 +14,9 @@ def index(request):
     context = {}
     return render(request, "pages/index.html", context)
 
-class productos(View):
-    def get(self,request):
-        product = Product.objects.all()
-        return render(request, "pages/productos.html",locals())
+def productos(request):
+    context = {}
+    return render(request, "pages/productos.html",context)
 
 def categoria(request):
     context = {}
@@ -60,13 +61,19 @@ def urbex(request):
 class CategoriaView(View):
     def get(self, request):
         product = Product.objects.all()
-        title = Product.objects.all().values('title').annotate(total=Count('title'))
+        title = Product.objects.all().values('title')
         return render(request, 'pages/categoria2.html', locals())
 
-def zprueba_usuario(request):
-    user = User.objects.all()
-    context = {'Usuario':user}
-    return render(request, 'pages/zprueba_usuario.html', context)
+class CategoryTitle(View):
+    def get(self,request):
+        product = Product.objects.all()
+        title = Product.objects.all().values('title')
+        return render(request, 'pages/categoria2.html', locals())
+
+class ProductDetail(View):
+    def get(self,request,pk):
+        product = Product.objects.get(pk=pk)
+        return render(request, 'pages/productdetail.html', locals())
 
 class CustomerRegistrationView(View):
     def get(self,request):
@@ -106,3 +113,70 @@ class ProfileView(View):
 def address(request):
     add = Customer.objects.filter(user=request.user)
     return render(request, 'pages/address.html', locals())
+
+def add_to_cart(request):
+    user=request.user
+    product_id=request.GET.get('prod_id')
+    product=Product.objects.get(id=product_id[0])
+    Carro(user=user, product=product).save()
+    return redirect("/cart")
+
+def show_cart(request):
+    user = request.user
+    cart = Carro.objects.filter(user=user)
+    amount = 0
+    for p in cart:
+        value = p.cantidad * p.product.price
+        amount = amount + value
+    totalcantidad = amount 
+    return render(request, 'pages/addtocart.html', locals())
+
+class checkout(View):
+    def get(self,request):
+        user=request.user
+        add=Customer.objects.filter(user=user)
+        carro_item = Carro.objects.filter(user=user)
+        famount = 0
+        for p in carro_item:
+            value = p.cantidad * p.product.price
+            famount = famount + value
+        totalcantidad = famount 
+        return render(request, 'pages/checkout.html', locals())
+
+def plus_cart(request):
+    if request.method == 'GET':
+        prod_id = request.GET['prod_id']
+        c = Carro.objects.get(Q(Product=prod_id) & Q(user=request.user))
+        c.quantity += 1
+        c.save()
+        user = request.user
+        carro = Carro.objects.filter(user=user)
+        amount = 0
+        for p in carro:
+            value = p.cantidad * p.product.price
+            amount = amount + value
+        totalcantidad = amount 
+        data={
+            'cantidad':c.cantidad,
+            'amount':amount,
+            'totalcantidad':totalcantidad
+        }
+        return JsonResponse(data)
+    
+def remove_cart(request):
+    if request.method == 'GET':
+        prod_id = request.GET['prod_id']
+        c = Carro.objects.get(Q(Product=prod_id) & Q(user=request.user))
+        c.delete()
+        user = request.user
+        carro = Carro.objects.filter(user=user)
+        amount = 0
+        for p in carro:
+            value = p.cantidad * p.product.price
+            amount = amount + value
+        totalcantidad = amount 
+        data={
+            'amount':amount,
+            'totalcantidad':totalcantidad
+        }
+        return JsonResponse(data)
