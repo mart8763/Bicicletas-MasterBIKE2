@@ -9,10 +9,10 @@ class LoginForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'class':'form-control'}))
     
 class CustomerRegistrationForm(UserCreationForm):
-    username =  forms.CharField(widget=forms.TextInput(attrs={'autofocus ': 'True', 'class':'form-control'}))
+    username =  forms.CharField(max_length=100, widget=forms.TextInput(attrs={'autofocus ': 'True', 'class':'form-control'}))
     email =     forms.EmailField(max_length=150, widget=forms.EmailInput(attrs={'class':'form-control'}))
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
-    password2 = forms.CharField(label='Confirmar password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password1 = forms.CharField(max_length=30, label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password2 = forms.CharField(max_length=30, label='Confirmar password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = User
